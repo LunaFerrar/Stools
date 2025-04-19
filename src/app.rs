@@ -49,21 +49,17 @@ impl eframe::App for TemplateApp {
             // The top panel is often a good place for a menu bar:
 
             egui::menu::bar(ui, |ui| {
-                
                 ui.selectable_value(&mut self.tabs, Tabs::Welcome, "Welcome");
                 ui.selectable_value(&mut self.tabs, Tabs::CourseFormat, "Format your course!");
                 ui.add_space(16.0);
-                
 
                 egui::widgets::global_theme_preference_buttons(ui);
             });
         });
 
-        egui::CentralPanel::default().show(ctx, |ui| {
-            match self.tabs {
-                Tabs::Welcome => crate::welcome::ui(ui),
-                Tabs::CourseFormat => self.course_format.ui(ui),
-            }
+        egui::CentralPanel::default().show(ctx, |ui| match self.tabs {
+            Tabs::Welcome => crate::welcome::ui(ui),
+            Tabs::CourseFormat => self.course_format.ui(ui),
         });
     }
 }

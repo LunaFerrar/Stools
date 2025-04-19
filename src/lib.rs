@@ -1,6 +1,6 @@
 #![warn(clippy::all, rust_2018_idioms)]
 
 mod app;
-mod welcome;
 mod course_format;
+mod welcome;
 pub use app::TemplateApp;
