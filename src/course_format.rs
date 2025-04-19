@@ -7,13 +7,15 @@ pub struct CourseFormat {
 
 impl CourseFormat {
     pub fn ui(&mut self, ui: &mut Ui) {
-        egui::TextEdit::multiline(&mut self.text_to_format)
-            .hint_text("put the codes to format here :)")
-            .show(ui);
+        egui::ScrollArea::vertical().show(ui, |ui| {
+            egui::TextEdit::multiline(&mut self.text_to_format)
+                .hint_text("put the codes to format here :)")
+                .show(ui);
 
-        let formated_text = course_format_full(&self.text_to_format);
+            let formated_text = course_format_full(&self.text_to_format);
 
-        ui.label(formated_text);
+            ui.label(formated_text);
+        });
     }
 }
 /* Previous parsing code
@@ -29,7 +31,7 @@ pub fn course_format(list_course: &str) -> String {
         }
     }
     final_string
-} 
+}
 */
 
 pub fn course_format_full(list_course: &str) -> String {
@@ -41,10 +43,10 @@ pub fn course_format_full(list_course: &str) -> String {
     } else {
         let mut previous_char = to_format.chars().nth(0).unwrap();
         for item in to_format.chars() {
-            if item.is_alphanumeric() {
+            if item.is_alphanumeric() && item != ' ' {
                 final_string = final_string + &item.to_string();
             } else {
-                if previous_char.is_alphabetic() {
+                if previous_char.is_alphanumeric() {
                     if !final_string.is_empty() {
                         final_string = final_string + ", "
                     }
@@ -52,7 +54,6 @@ pub fn course_format_full(list_course: &str) -> String {
             }
             previous_char = item;
         }
-
         final_string
     }
 }
