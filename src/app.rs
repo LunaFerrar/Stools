@@ -1,6 +1,7 @@
 use serde::Serialize;
 
 use crate::course_format::CourseFormat;
+use crate::snowflake_id_format::SnowflakeIdFormat;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize, Default)]
@@ -9,6 +10,7 @@ pub struct TemplateApp {
     // Example stuff:
     tabs: Tabs,
     course_format: CourseFormat,
+    snowflake_id_format: SnowflakeIdFormat,
 }
 
 #[derive(serde::Deserialize, Serialize, Default, Debug, PartialEq, Eq, Clone, Copy)]
@@ -16,6 +18,7 @@ enum Tabs {
     #[default]
     Welcome,
     CourseFormat,
+    SnowflakeIdFormat,
 }
 
 impl TemplateApp {
@@ -51,6 +54,7 @@ impl eframe::App for TemplateApp {
             egui::menu::bar(ui, |ui| {
                 ui.selectable_value(&mut self.tabs, Tabs::Welcome, "Welcome");
                 ui.selectable_value(&mut self.tabs, Tabs::CourseFormat, "Format your course!");
+                ui.selectable_value(&mut self.tabs, Tabs::SnowflakeIdFormat, "Format your Snowflake ID!");
                 ui.add_space(16.0);
 
                 egui::widgets::global_theme_preference_buttons(ui);
@@ -60,6 +64,7 @@ impl eframe::App for TemplateApp {
         egui::CentralPanel::default().show(ctx, |ui| match self.tabs {
             Tabs::Welcome => crate::welcome::ui(ui),
             Tabs::CourseFormat => self.course_format.ui(ui),
+            Tabs::SnowflakeIdFormat => self.snowflake_id_format.ui(ui),
         });
     }
 }
