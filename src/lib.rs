@@ -2,6 +2,6 @@
 
 mod app;
 mod course_format;
-mod welcome;
 mod snowflake_id_format;
+mod welcome;
 pub use app::TemplateApp;
