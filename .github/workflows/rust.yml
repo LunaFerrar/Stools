@@ -46,7 +46,8 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: 1.85.0
+          target: wasm32-unknown-unknown
           override: true
           components: clippy
       - uses: actions-rs/cargo@v1

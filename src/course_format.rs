@@ -41,16 +41,12 @@ pub fn course_format_full(list_course: &str) -> String {
     if to_format.is_empty() {
         final_string
     } else {
-        let mut previous_char = to_format.chars().nth(0).unwrap();
+        let mut previous_char = to_format.chars().next().unwrap();
         for item in to_format.chars() {
             if item.is_alphanumeric() && item != ' ' {
                 final_string = final_string + &item.to_string();
-            } else {
-                if previous_char.is_alphanumeric() {
-                    if !final_string.is_empty() {
-                        final_string = final_string + ", "
-                    }
-                }
+            } else if previous_char.is_alphanumeric() && !final_string.is_empty() {
+                final_string += ", "
             }
             previous_char = item;
         }
