@@ -36,7 +36,7 @@ pub fn course_format(list_course: &str) -> String {
 
 pub fn course_format_full(list_course: &str) -> String {
     let to_format = list_course;
-    let mut final_string: String= "'".to_string();
+    let mut final_string: String = "'".to_string();
 
     if to_format.is_empty() {
         final_string
